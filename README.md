@@ -16,6 +16,8 @@ Inspired by [chjj's fork of slock](https://github.com/chjj/slock/)
     - To use this, add the following to your `/etc/sudoers` file:
         - `[username] [hostname] =NOPASSWD: /usr/bin/tee /proc/sys/kernel/sysrq`
             - Replace `[username]` and `[hostname]` with the username and hostname of your machine.
+- Relicensed under the GPLv3
+    - Any new changes to the source are licensed under GPL, the original slock code is licensed under the MIT license. It is also included in `MIT_LICENSE`.
 
 ## Installation
 - Edit `config.mk` to match your local machine, if needed. Slock will be installed into the `/usr/local` namespace by default.
