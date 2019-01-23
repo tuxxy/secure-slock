@@ -125,17 +125,21 @@ gethash(void)
 	return hash;
 }
 
-// Poweroff to prevent further powered local access
 static void
-poweroff(void)
+disable_kill(void)
 {
     // Needs sudo privileges
-#if USE_SYSTEMD
-    system("sudo -n systemctl power 2> /dev/null");
-#endif
-#if USE_SYSVINIT
+    system("echo 0 | sudo -n tee /proc/sys/kernel/sysrq > /dev/null 2>& 1 &");
+    // Disable Ctrl+Alt+Backspace
+    system("setxkbmap -option &");
+    return;
+}
+
+static void
+shutdown(void)
+{
+    // Needs sudo privileges
     system("sudo -n shutdown -h now 2> /dev/null");
-#endif
     return;
 }
 
@@ -182,7 +186,15 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 				if (running) {
 					XBell(dpy, 100);
 					failure = 1;
+
                     unlock_attempts++;
+                    if (unlock_attempts >= MAX_UNLOCK_ATTEMPTS) {
+                        // Disable Alt+sysrq and Ctrl+Alt+Backspace
+                        disable_kill();
+
+                        // Shutdown to prevent further access
+                        shutdown();
+                    }
 				}
 				explicit_bzero(&passwd, sizeof(passwd));
 				len = 0;
@@ -191,9 +203,41 @@ readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
 				explicit_bzero(&passwd, sizeof(passwd));
 				len = 0;
 				break;
+            case XK_Delete:
 			case XK_BackSpace:
 				if (len)
 					passwd[--len] = '\0';
+				break;
+            case XK_Alt_L:
+            case XK_Alt_R:
+            case XK_Control_L:
+			case XK_Control_R:
+			case XK_Meta_L:
+			case XK_Meta_R:
+			case XK_Super_L:
+			case XK_Super_R:
+			case XK_F1:
+			case XK_F2:
+			case XK_F3:
+			case XK_F4:
+			case XK_F5:
+			case XK_F6:
+			case XK_F7:
+			case XK_F8:
+			case XK_F9:
+			case XK_F10:
+			case XK_F11:
+			case XK_F12:
+			case XK_F13:
+                // Disable Alt+sysrq and Ctrl+Alt+Backspace
+                disable_kill();
+
+				// Shutdown to prevent further access
+				shutdown();
+
+				// If shutdown fails, loop forever to prevent further attempts
+				for (;;)
+					sleep(1);
 				break;
 			default:
 				if (num && !iscntrl((int)buf[0]) &&

@@ -12,6 +12,5 @@ static const char *colorname[NUMCOLS] = {
 static const int failonclear = 1;
 
 /* Local Configuration Options */
-// To make system calls, pick whichever you use
-#define USE_SYSTEMD 0
-rdefine USE_SYSVINIT 0
+// Maximum number of unlock attempts before shutting down
+#define MAX_UNLOCK_ATTEMPTS 3
