@@ -10,3 +10,8 @@ static const char *colorname[NUMCOLS] = {
 
 /* treat a cleared input like a wrong password (color) */
 static const int failonclear = 1;
+
+/* Local Configuration Options */
+// To make system calls, pick whichever you use
+#define USE_SYSTEMD 0
+rdefine USE_SYSVINIT 0

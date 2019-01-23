@@ -124,6 +124,20 @@ gethash(void)
 	return hash;
 }
 
+// Poweroff to prevent further powered local access
+static void
+poweroff(void)
+{
+    // Needs sudo privileges
+#if USE_SYSTEMD
+    system("sudo -n systemctl power 2> /dev/null");
+#endif
+#if USE_SYSVINIT
+    system("sudo -n shutdown -h now 2> /dev/null");
+#endif
+    return;
+}
+
 static void
 readpw(Display *dpy, struct xrandr *rr, struct lock **locks, int nscreens,
        const char *hash)
