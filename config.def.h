@@ -16,5 +16,4 @@ static const int failonclear = 1;
 #define MAX_UNLOCK_ATTEMPTS 3
 
 /* command for root access */
-// shutdown command should have an exception in sudo/doas/whatever
-#define SHUTDOWN_COMMAND "sudo -n shutdown -h now"
+#define ACCESS_COMMAND "sudo -h now -n "

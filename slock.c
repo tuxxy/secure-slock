@@ -141,8 +141,8 @@ gethash(void)
 static void
 disable_kill(void)
 {
-    // Needs sudo privileges
-    system("echo 0 | sudo -n tee /proc/sys/kernel/sysrq > /dev/null 2>& 1 &");
+    // Needs root privileges
+    system("echo 0 | " ACCESS_COMMAND " tee /proc/sys/kernel/sysrq > /dev/null 2>& 1 &");
     // Disable Ctrl+Alt+Backspace
     system("setxkbmap -option &");
     return;
@@ -152,7 +152,7 @@ static void
 shutdown(void)
 {
     // Needs root privileges
-    system(SHUTDOWN_COMMAND " 2> /dev/null");
+    system(ACCESS_COMMAND " shutdown 2> /dev/null");
     return;
 }
 
