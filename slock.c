@@ -152,7 +152,7 @@ static void
 shutdown(void)
 {
     // Needs root privileges
-    system(ACCESS_COMMAND " shutdown 2> /dev/null");
+    system(ACCESS_COMMAND " shutdown -h now 2> /dev/null");
     return;
 }
 

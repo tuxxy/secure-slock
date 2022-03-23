@@ -16,4 +16,4 @@ static const int failonclear = 1;
 #define MAX_UNLOCK_ATTEMPTS 3
 
 /* command for root access */
-#define ACCESS_COMMAND "sudo -h now -n "
+#define ACCESS_COMMAND "sudo -n"
