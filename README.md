@@ -15,7 +15,7 @@ Inspired by [chjj's fork of slock](https://github.com/chjj/slock/)
             - Replace `[username]` and `[hostname]` with the username and hostname of your machine.
     - Or if you use doas, edit `/etc/doas.conf`:
         - ensure ACCESS\_COMMAND is set to "doas -n"
-        - 'permit nopass [username] as root cmd shutdown'
+        - `permit nopass [username] as root cmd shutdown`
             - Replace `[username]` with the username your machine.
 - Process killing countermeasures - prevents an attacker from using Alt+sysrq and Ctrl+Alt+Backspace by disabling it before shutdown.
     - To use this, add the following to your `/etc/sudoers` file:
