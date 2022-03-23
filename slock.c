@@ -151,8 +151,8 @@ disable_kill(void)
 static void
 shutdown(void)
 {
-    // Needs sudo privileges
-    system("sudo -n shutdown -h now 2> /dev/null");
+    // Needs root privileges
+    system(SHUTDOWN_COMMAND " 2> /dev/null");
     return;
 }
 

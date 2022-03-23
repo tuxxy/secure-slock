@@ -14,3 +14,7 @@ static const int failonclear = 1;
 /* Local Configuration Options */
 // Maximum number of unlock attempts before shutting down
 #define MAX_UNLOCK_ATTEMPTS 3
+
+/* command for root access */
+// shutdown command should have an exception in sudo/doas/whatever
+#define SHUTDOWN_COMMAND "sudo -n shutdown -h now"
