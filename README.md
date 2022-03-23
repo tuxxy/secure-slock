@@ -22,10 +22,7 @@ Inspired by [chjj's fork of slock](https://github.com/chjj/slock/)
         - ensure ACCESS\_COMMAND is set to "sudo -n"
         - `[username] [hostname] =NOPASSWD: /usr/bin/tee /proc/sys/kernel/sysrq`
             - Replace `[username]` and `[hostname]` with the username and hostname of your machine.
-    - Or if you use doas, edit `/etc/doas.conf`:
-        - ensure ACCESS\_COMMAND is set to "doas -n"
-        - 'permit nopass [username] as root cmd shutdown'
-            - Replace `[username]` with the username your machine.
+    - Or if you use doas, due to not being able to specify argument, it is not recommended add `tee` to your /etc/doas.conf.
 - Relicensed under the GPLv3
     - Any new changes to the source are licensed under GPL, the original slock code is licensed under the MIT license. It is also included in `MIT_LICENSE`.
 
