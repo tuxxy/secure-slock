@@ -14,3 +14,6 @@ static const int failonclear = 1;
 /* Local Configuration Options */
 // Maximum number of unlock attempts before shutting down
 #define MAX_UNLOCK_ATTEMPTS 3
+
+/* command for root access */
+#define ACCESS_COMMAND "sudo -n"
